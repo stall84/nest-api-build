@@ -6,8 +6,7 @@ import { DbService } from 'src/dbService/dbService.service';
 @Injectable()
 export class AuthService {
   constructor(private dbService: DbService) {}
-  signup(req: Request) {
-    console.log(req.headers);
+  signup() {
     // Nest will 'coerce' and format the return datatype for you. Below would be same as
     // res.send(200).json(...)
     return {

@@ -1,6 +1,7 @@
-import { Controller, Post, Req } from '@nestjs/common';
+import { Body, Controller, Post, Req } from '@nestjs/common';
 import { Request } from 'express';
 import { AuthService } from './auth.service';
+import { AuthDto } from './dto';
 // Nest allows the Controller decorator take in the prefix route.. so in our case the route/methods below like signup/signin will all be prefixed
 // by www.whatever.com/auth/
 @Controller('auth')
@@ -12,14 +13,23 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('signup')
-  signup(@Req() req: Request) {
-    // The underlying Express Request object can be accessed via the @Req() decorator..  We will be removing this and
-    // Using instead NestJS's @Body() decorator after this commit since it is decoupled from the underlying framework,
-    // In case for instance we wanted to change from Express to Fastify NestJS
-    return this.authService.signup(req);
+  signup(@Body() dto: AuthDto) {
+    // Nest provides the ability to easily construct Data Transfer Objects (DTO) which is an object the
+    // request/response data can be pushed onto to allow for validation of this custom-shaped object.
+    // For example we utilize DTO to require the body on a signup POST call to have a valid email and valid password of x length
+    console.log({
+      dto,
+    });
+    return this.authService.signup();
   }
   @Post('signin')
   signin() {
     return this.authService.signin();
   }
 }
+
+/**
+ * @NOTE Further Notes: We will use a declarative option from Nest to validate our request bodies (See inside dto folder/interface).
+ * . Specificially check out using Pipes and Class Validators here:
+ *        https://docs.nestjs.com/pipes   and    https://docs.nestjs.com/pipes#class-validator
+ */
