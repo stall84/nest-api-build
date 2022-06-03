@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
+import { BookmarkModule } from './bookmark/bookmark.module';
 
+// Module described as an analogue for the main or app.js files in a react app. ... A consolidation point
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [AuthModule, UserModule, BookmarkModule],
 })
 export class AppModule {}
