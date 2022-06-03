@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { User, Bookmark } from '@prisma/client';
+import { DbService } from 'src/dbService/dbService.service';
 
-@Injectable({})
+@Injectable()
 export class AuthService {
+  constructor(private dbService: DbService) {}
   signin() {
     return {
       msg: 'I have signed in..',

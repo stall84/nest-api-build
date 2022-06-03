@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 
-@Injectable({})
-export class DbServiceService extends PrismaClient {
+@Injectable()
+export class DbService extends PrismaClient {
   // Extension of the PrismaClient class requires calling the superclasses' constructor
   constructor() {
     super({
